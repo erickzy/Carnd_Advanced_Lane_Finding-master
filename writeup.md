@@ -46,7 +46,7 @@ You're reading it!
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
-![unstorted image](output_images/unstorted image.png) 
+![unstorted image](./output_images/unstorted image.png) 
 See more picture in Jupyter notebook.
 
 ### Pipeline (single images)
@@ -54,13 +54,13 @@ See more picture in Jupyter notebook.
 #### 1. Provide an example of a distortion-corrected image.
 
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text](output_images/unstorted image2.png)
+![alt text](./output_images/unstorted image2.png)
 
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
 I used a combination of color and gradient thresholds to generate a binary image .  Here's an example of my output for this step.  
-![alt text](output_images/apply threshold1.png)
+![alt text](./output_images/apply threshold3.png)
 
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
@@ -75,14 +75,16 @@ dst = np.float32([[300,0], [1000,0],[300,720],[1000,720]])
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text](output_images/src dst points.png)
+![alt text](./output_images/src dst points4.png)
+
 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 I use the combined image function to get isolated lane line, then I fit a polynomial to both of the lane line. Then I calculate the radius of curvature. In the function fill_lane() , lane lines are detected by identifying peaks in a histogram of the image and detecting nonzero pixels in close proximity to the peaks. I summary a function by pipeline() for convenience.
 
-![alt text](output_images/lane poly and curve.png)
+![alt text](./output_images/lane poly and curve9.png)
+
 
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
@@ -133,4 +135,7 @@ When I tried on challenge and harder_challenge_video, and find it doesn't work w
 After I submit this project  last time, reviewer share a good reference to me which make me know how to make a more smoothly pipeline. I would like to read this paper and evolution my pipeline to much robuster.
 Here is a very detailed paper about it:
 [paper](http://cdn.intechopen.com/pdfs/46518.pdf)
+
+##### 9/30 Update
+Correct the camera calibration to make the wraped image normal.
 
